@@ -6,11 +6,11 @@
 #    By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 16:41:00 by gchamore          #+#    #+#              #
-#    Updated: 2024/11/19 14:30:47 by gchamore         ###   ########.fr        #
+#    Updated: 2024/11/25 15:53:26 by gchamore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = identify
+NAME = abomination
 
 CC = c++
 
@@ -18,15 +18,13 @@ CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
 RM = rm -rf
 
-SRCS = main.cpp A.cpp B.cpp C.cpp Base.cpp
+SRCS = main.cpp
 
 OBJ_DIR = objs
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
 DEPS = $(OBJS:.o=.d)
-
-TO_DELETE = Backyard_shrubbery
 
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
@@ -47,7 +45,7 @@ clean:
 	$(RM) $(OBJS) $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME) $(TO_DELETE)
+	$(RM) $(NAME)
 
 re: fclean all
 
@@ -61,12 +59,12 @@ first_header:
 	@echo "\n $$FIRST_HEADER \n"
 
 define FIRST_HEADER
-$(ORANGE)██████╗██████╗ ██████╗      ██████╗  ██████╗ 
-██╔════╝██╔══██╗██╔══██╗    ██╔═████╗██╔════╝ 
-██║     ██████╔╝██████╔╝    ██║██╔██║███████╗ 
-██║     ██╔═══╝ ██╔═══╝     ████╔╝██║██╔═══██╗
-╚██████╗██║     ██║         ╚██████╔╝╚██████╔╝
- ╚═════╝╚═╝     ╚═╝          ╚═════╝  ╚═════╝ $(RESET)  
+$(ORANGE)██████╗██████╗ ██████╗      ██████╗  █████╗ 
+██╔════╝██╔══██╗██╔══██╗    ██╔═████╗██╔══██╗
+██║     ██████╔╝██████╔╝    ██║██╔██║╚█████╔╝
+██║     ██╔═══╝ ██╔═══╝     ████╔╝██║██╔══██╗
+╚██████╗██║     ██║         ╚██████╔╝╚█████╔╝
+ ╚═════╝╚═╝     ╚═╝          ╚═════╝  ╚════╝ $(RESET) 
 
 $(YELLOW)EX 02$(RESET)
 endef

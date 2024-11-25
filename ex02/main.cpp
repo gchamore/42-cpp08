@@ -6,100 +6,61 @@
 /*   By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:53:13 by gchamore          #+#    #+#             */
-/*   Updated: 2024/11/19 14:38:12 by gchamore         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:09:49 by gchamore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Base.hpp"
-#include "A.hpp"
-#include "B.hpp"
-#include "C.hpp"
-
-#include <cstdlib>
-#include <cstdio>
-
-static Base *generate(void)
-{
-	switch (rand() % 3)
-	{
-	case 0:
-		return (new A());
-		break;
-	case 1:
-		return (new B());
-		break;
-	case 2:
-		return (new C());
-		break;
-	default:
-		perror("error with generator");
-		return (NULL);
-	}
-}
-
-static void identify(Base *Test)
-{
-	if (dynamic_cast<A *>(Test))
-		std::cout << "A is the identified type" << std::endl;
-	else if (dynamic_cast<B *>(Test))
-		std::cout << "B is the identified type" << std::endl;
-	else if (dynamic_cast<C *>(Test))
-		std::cout << "C is the identified type" << std::endl;
-	else
-		std::cout << "wrong type" << std::endl;
-}
-
-// needed for the recursive nature of identify(Base &Test)
-static int i = 0;
-static std::string classes[] = {"A", "B", "C"};
-
-static void identify(Base &Test)
-{
-	while (i < 3)
-	{
-		void *foo = NULL;
-		Base &unused = (Base &)foo;
-		try
-		{
-			if (i == 0)
-				unused = dynamic_cast<A &>(Test);
-			else if (i == 1)
-				unused = dynamic_cast<B &>(Test);
-			else if (i == 2)
-				unused = dynamic_cast<C &>(Test);
-			else
-				std::cout << "unknow type" << std::endl;
-			(void)unused;
-		}
-		catch (std::exception &e)
-		{
-			// std::cout << e.what() << std::endl;
-			i++;
-			identify(Test);
-			return;
-		}
-		std::cout << classes[i] << " is the identified type" << std::endl;
-		i = 0;
-		break;
-	}
-}
+#include "MutantStack.hpp"
+#include <list>
 
 int main()
 {
-	srand(time(NULL));
-	for (int j = 0; j < 5; j++)
+	MutantStack<int> mstack;
+	mstack.push(5);
+	mstack.push(17);
+	std::cout << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << mstack.size() << std::endl;
+	mstack.push(3);
+	mstack.push(5);
+	mstack.push(737);
+	//[...]
+	mstack.push(0);
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
+	++it;
+	--it;
+	while (it != ite)
 	{
-		Base *Test = generate();
-		if (Test == NULL)
-			return (1);
-		else
-		{
-			identify(Test);
-			identify(*Test);
-			delete (Test);
-
-			std::cout << std::endl;
-		}
+		std::cout << *it << std::endl;
+		++it;
 	}
-	return (0);
+	std::stack<int> s(mstack);
+	return 0;
 }
+
+// int main()
+// {
+// 	std::list<int> mstack;
+// 	mstack.push_back(5);
+// 	mstack.push_back(17);
+// 	std::cout << mstack.back() << std::endl;
+// 	mstack.pop_back();
+// 	std::cout << mstack.size() << std::endl;
+// 	mstack.push_back(3);
+// 	mstack.push_back(5);
+// 	mstack.push_back(737);
+// 	//[...]
+// 	mstack.push_back(0);
+// 	std::list<int>::iterator it = mstack.begin();
+// 	std::list<int>::iterator ite = mstack.end();
+// 	++it;
+// 	--it;
+// 	while (it != ite)
+// 	{
+// 		std::cout << *it << std::endl;
+// 		++it;
+// 	}
+// 	std::list<int> s(mstack);
+// 	return 0;
+// }
