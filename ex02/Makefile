@@ -6,11 +6,11 @@
 #    By: gchamore <gchamore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 16:41:00 by gchamore          #+#    #+#              #
-#    Updated: 2024/11/25 15:53:26 by gchamore         ###   ########.fr        #
+#    Updated: 2024/11/27 12:57:19 by gchamore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = abomination
+NAME = MutantStack
 
 CC = c++
 
@@ -25,12 +25,6 @@ OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
 DEPS = $(OBJS:.o=.d)
-
-GREEN = \033[1;32m
-YELLOW = \033[1;33m
-ORANGE = \033[38;5;214m
-RESET = \033[0m
-CHECK_MARK = \033[1;32m✔\033[0m
 
 all: first_header $(NAME)
 
